@@ -298,11 +298,11 @@ def halaman_deteksi(model, scaler, le, pilih):
     with col_img:
         bagian("1", "Input Gambar")
         with st.container(border=True):
-            st.image(img_asli, caption="Gambar Asli", use_container_width=True)
+            st.image(img_asli, caption="Gambar Asli", width="stretch")
         with st.spinner("AI sedang menghapus background..."):
             img_clean_bgr = hapus_background(file_bytes)
         with st.container(border=True):
-            st.image(cv2.cvtColor(img_clean_bgr, cv2.COLOR_BGR2RGB), caption="Setelah Background Dihapus (AI)", use_container_width=True)
+            st.image(cv2.cvtColor(img_clean_bgr, cv2.COLOR_BGR2RGB), caption="Setelah Background Dihapus (AI)", width="stretch")
 
     hasil = None
     with col_res:
@@ -328,31 +328,31 @@ def halaman_deteksi(model, scaler, le, pilih):
             dt1, dt2, dt3, dt4 = st.tabs(["Masking & Morfologi", "Pemisahan HSV", "Tabel Morfologi", "Tabel Warna (HSV)"])
             with dt1:
                 c1, c2 = st.columns(2)
-                with c1: st.image(mask_leaf, caption="Mask Daun (Putih = Area Daun)", use_container_width=True, clamp=True)
-                with c2: st.image(mask_nec, caption="Mask Nekrosis (Putih = Bercak Mati)", use_container_width=True, clamp=True)
+                with c1: st.image(mask_leaf, caption="Mask Daun (Putih = Area Daun)", width="stretch", clamp=True)
+                with c2: st.image(mask_nec, caption="Mask Nekrosis (Putih = Bercak Mati)", width="stretch", clamp=True)
             with dt2:
                 h, s, v = cv2.split(cv2.cvtColor(img_pre, cv2.COLOR_BGR2HSV))
                 c1, c2, c3 = st.columns(3)
-                with c1: st.image(h, caption="Hue (Warna)", use_container_width=True, clamp=True)
-                with c2: st.image(s, caption="Saturation (Kejenuhan)", use_container_width=True, clamp=True)
-                with c3: st.image(v, caption="Value (Kecerahan)", use_container_width=True, clamp=True)
+                with c1: st.image(h, caption="Hue (Warna)", width="stretch", clamp=True)
+                with c2: st.image(s, caption="Saturation (Kejenuhan)", width="stretch", clamp=True)
+                with c3: st.image(v, caption="Value (Kecerahan)", width="stretch", clamp=True)
             with dt3:
                 st.dataframe(pd.DataFrame({
                     "Fitur Morfologi": ["Area (Luas)", "Perimeter (Keliling)", "Aspect Ratio", "Extent", "Compactness", "Roundness", "Eccentricity", "Solidity", "Major Axis", "Minor Axis", "Eq. Diameter", "Rasio Nekrosis (%)"],
                     "Nilai": [f"{fitur[i]:.4f}" for i in range(11)] + [f"{fitur[11]*100:.2f}%"]
-                }), use_container_width=True, hide_index=True)
+                }), width="stretch", hide_index=True)
             with dt4:
                 st.dataframe(pd.DataFrame({
                     "Fitur Warna (HSV)": ["H Mean", "H Std", "H Skew", "S Mean", "S Std", "S Skew", "V Mean", "V Std", "V Skew"],
                     "Nilai": [f"{fitur[i]:.2f}" for i in range(12, 21)]
-                }), use_container_width=True, hide_index=True)
+                }), width="stretch", hide_index=True)
                 import plotly.express as px
                 hist_df = pd.DataFrame({"Bin": list(range(1, 17)) * 3, "Kanal": ["H"] * 16 + ["S"] * 16 + ["V"] * 16, "Proporsi": fitur[21:69]})
                 fig = px.bar(hist_df, x="Bin", y="Proporsi", color="Kanal", barmode="group", height=280,
                              color_discrete_map={"H": "#0ea5e9", "S": "#22c55e", "V": "#f59e0b"})
                 fig.update_layout(margin=dict(l=0, r=0, t=10, b=0), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
                                   legend=dict(orientation="h", y=1.1, x=0, title=None), yaxis=dict(gridcolor="#f1f5f9"))
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
 
 def halaman_evaluasi(mode, pilih):
     bagian("📊", f"Evaluasi Performa Model ({pilih})")
@@ -378,7 +378,7 @@ def halaman_evaluasi(mode, pilih):
     with col_cm:
         html(f'<div class="card-t">Confusion Matrix ({SK.replace("_", ":")}, {pilih})</div>')
         with st.container(border=True):
-            if os.path.exists(path_cm(mode)): st.image(path_cm(mode), use_container_width=True, caption=f"Confusion Matrix SVM ({pilih})")
+            if os.path.exists(path_cm(mode)): st.image(path_cm(mode), width="stretch", caption=f"Confusion Matrix SVM ({pilih})")
             else: st.warning("Gambar Confusion Matrix tidak ditemukan.")
     with col_lap:
         html('<div class="card-t">Laporan Klasifikasi</div>')
