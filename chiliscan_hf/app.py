@@ -14,9 +14,12 @@ st.set_page_config(page_title="ChiliScan Dashboard", page_icon="🌶️", layout
 # ============================================================
 # KONFIGURASI
 # ============================================================
-HASIL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model")
-SK = "70_30"                       # skenario yang dipakai aplikasi
-AMBANG_YAKIN = 0.60                # probabilitas maksimum minimal (sesuai Gambar 3.2)
+HASIL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model", "hasil_v3")
+SK = "70_30"       
+MODE = "kelas4"                    
+MODEL_PATH = os.path.join(HASIL, MODE, f"svm_model_{SK}.pkl")
+CM_PATH = os.path.join(HASIL, MODE, f"confusion_matrix_{SK}.png")
+AMBANG_YAKIN = 0.60 
 
 OPSI_MODE = {"4 Kelas": "kelas4", "3 Kelas": "kelas3"}
 URUT_KELAS = {"kelas4": ["sehat", "ringan", "sedang", "berat"],
