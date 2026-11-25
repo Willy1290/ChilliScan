@@ -1,0 +1,10 @@
+              precision    recall  f1-score   support
+
+       berat      0.810     0.810     0.810        21
+      ringan      0.860     0.778     0.817        63
+      sedang      0.462     0.750     0.571        16
+       sehat      0.989     0.948     0.968        96
+
+    accuracy                          0.862       196
+   macro avg      0.780     0.821     0.791       196
+weighted avg      0.885     0.862     0.870       196
