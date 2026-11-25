@@ -14,7 +14,7 @@ st.set_page_config(page_title="ChiliScan Dashboard", page_icon="🌶️", layout
 # ============================================================
 # KONFIGURASI
 # ============================================================
-HASIL = r"D:\Skripsi_Cabai\hasil_v3"
+HASIL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model")
 SK = "70_30"                       # skenario yang dipakai aplikasi
 AMBANG_YAKIN = 0.60                # probabilitas maksimum minimal (sesuai Gambar 3.2)
 
